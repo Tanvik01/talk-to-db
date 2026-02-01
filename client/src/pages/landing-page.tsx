@@ -5,7 +5,7 @@ interface LandingPageProps {
     onAuthSuccess: (token: string, user: { id: number; email: string; username?: string; avatar?: string }) => void
 }
 
-const API_BASE_URL = 'http://localhost:3001/api'
+const API_BASE_URL = import.meta.env.VITE_API_URL;
 
 function LandingPage({ onAuthSuccess }: LandingPageProps) {
     const [mode, setMode] = useState<'login' | 'register'>('login')
@@ -83,7 +83,7 @@ function LandingPage({ onAuthSuccess }: LandingPageProps) {
 
         const options: Record<string, string> = {
             client_id: import.meta.env.VITE_GITHUB_CLIENT_ID,
-            redirect_uri: 'http://localhost:3001/api/auth/github/callback',
+            redirect_uri: `${API_BASE_URL}/api/auth/github/callback`,
             scope: 'user:email',
             state: state,
             // Force GitHub to prompt for account selection/login
