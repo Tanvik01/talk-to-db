@@ -5,6 +5,23 @@ import AuthSuccess from './components/auth-success'
 import './styles/landing.css'
 import './index.css'
 
+declare global {
+  interface Window {
+    SpeechRecognition: any;
+    webkitSpeechRecognition: any;
+  }
+}
+interface SpeechRecognition extends EventTarget {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  onresult: (event: any) => void;
+  onerror: (event: any) => void;
+  onend: () => void;
+  start: () => void;
+  stop: () => void;
+}
+
 interface ChatMessage {
   id: string
   role: 'user' | 'assistant'
@@ -29,13 +46,7 @@ interface User {
   avatar?: string
 }
 
-// Extend Window interface for Speech Recognition
-declare global {
-  interface Window {
-    SpeechRecognition: typeof SpeechRecognition
-    webkitSpeechRecognition: typeof SpeechRecognition
-  }
-}
+
 
 function App() {
   // Auth state
@@ -106,13 +117,13 @@ function App() {
       recognition.interimResults = false
       recognition.lang = 'en-US'
 
-      recognition.onresult = (event) => {
+      recognition.onresult = (event: any) => {
         const transcript = event.results[0][0].transcript
         setInput((prev) => prev + (prev ? ' ' : '') + transcript)
         setIsListening(false)
       }
 
-      recognition.onerror = (event) => {
+      recognition.onerror = (event: any) => {
         console.error('Speech recognition error:', event.error)
         setIsListening(false)
       }
