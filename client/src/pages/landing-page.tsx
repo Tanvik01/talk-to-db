@@ -40,7 +40,7 @@ function LandingPage({ onAuthSuccess }: LandingPageProps) {
         setIsLoading(true)
 
         try {
-            const endpoint = mode === 'login' ? '/auth/login' : '/auth/signup'
+            const endpoint = mode === 'login' ? 'api/auth/login' : 'api/auth/signup'
             const response = await fetch(`${API_BASE_URL}${endpoint}`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
