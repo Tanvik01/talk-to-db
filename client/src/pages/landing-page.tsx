@@ -76,18 +76,17 @@ function LandingPage({ onAuthSuccess }: LandingPageProps) {
 
     const handleGitHubLogin = () => {
         const rootUrl = 'https://github.com/login/oauth/authorize';
-        // Generate a unique state to prevent OAuth caching and force re-authorization
+
         const state = `${Date.now()}_${Math.random().toString(36).substring(7)}`;
-        // Store state in sessionStorage for verification on callback
+
         sessionStorage.setItem('github_oauth_state', state);
 
         const options: Record<string, string> = {
             client_id: import.meta.env.VITE_GITHUB_CLIENT_ID,
-            redirect_uri: `${API_BASE_URL}/api/auth/github/callback`,
+            redirect_uri: `${API_BASE_URL.replace(/\/$/, '')}/api/auth/github/callback`,
             scope: 'user:email',
             state: state,
-            // Force GitHub to prompt for account selection/login
-            // Empty 'login' parameter forces the login prompt to appear
+
             login: '',
         };
 
