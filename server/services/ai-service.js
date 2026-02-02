@@ -1,5 +1,5 @@
 import { generateText } from 'ai'
-import ollama from '../config/ollama.js'
+import gemini from '../config/gemini.js'
 
 const SYSTEM_PROMPT = `You are a SQL Expert. 
 Convert natural language questions into SQL queries.
@@ -45,9 +45,9 @@ export async function generateSQL(messages) {
     console.log('Converted core messages:', JSON.stringify(coreMessages, null, 2))
 
     try {
-        // Use generateText instead of streamText to get the complete response
+        // Use generateText with Gemini model
         const result = await generateText({
-            model: ollama('llama3.2'),
+            model: gemini('gemini-1.5-flash'),
             system: SYSTEM_PROMPT,
             messages: coreMessages,
         })
@@ -62,3 +62,4 @@ export async function generateSQL(messages) {
         throw error
     }
 }
+

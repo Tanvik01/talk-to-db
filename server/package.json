@@ -9,6 +9,7 @@
         "dev": "node --watch server.js"
     },
     "dependencies": {
+        "@ai-sdk/google": "^3.0.20",
         "@ai-sdk/openai": "^3.0.18",
         "ai": "^6.0.49",
         "axios": "^1.13.4",
