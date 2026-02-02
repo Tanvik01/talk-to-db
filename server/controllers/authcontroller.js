@@ -139,7 +139,7 @@ export const gitCallback = async (req, res) => {
         });
 
         console.log("GitHub callback: Success, redirecting with token and profile info");
-        const FRONTEND_URL = 'https://talk-to-db.netlify.app/' || 'http://localhost:5173'
+        const FRONTEND_URL = process.env.FRONTEND_URL || 'https://talk-to-db.netlify.app';
         res.redirect(`${FRONTEND_URL}/auth-success?${redirectParams.toString()}`);
 
     } catch (error) {
