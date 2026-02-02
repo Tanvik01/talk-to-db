@@ -47,7 +47,7 @@ export async function generateSQL(messages) {
     try {
         // Use generateText with Gemini model
         const result = await generateText({
-            model: gemini('models/gemini-pro'),
+            model: gemini('gemini-2.0-flash'),
             system: SYSTEM_PROMPT,
             messages: coreMessages,
         })
