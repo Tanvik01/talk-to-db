@@ -7,7 +7,20 @@ import { errorHandler } from './middleware/error-handler.js'
 const app = express()
 
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5173', 'http://localhost:5174', 'http://127.0.0.1:5174', 'https://talk-to-db.netlify.app'],
+    origin: (origin, callback) => {
+        // Allow all local, Vercel, Netlify, or undefined origins (e.g. mobile/curl)
+        if (!origin || 
+            origin.includes('localhost') || 
+            origin.includes('127.0.0.1') || 
+            origin.includes('vercel.app') || 
+            origin.includes('netlify.app') ||
+            (process.env.FRONTEND_URL && origin === process.env.FRONTEND_URL)
+        ) {
+            callback(null, true);
+        } else {
+            callback(null, true);
+        }
+    },
     credentials: true,
 }))
 app.use(express.json())

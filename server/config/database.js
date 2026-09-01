@@ -6,8 +6,8 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Database path in the server directory
-const dbPath = process.env.SQLITE_DB_PATH || path.join(__dirname, '..', 'sales.db');
+// Database path (on Vercel serverless, only /tmp is writable)
+const dbPath = process.env.SQLITE_DB_PATH || (process.env.VERCEL ? path.join('/tmp', 'sales.db') : path.join(__dirname, '..', 'sales.db'));
 const db = new Database(dbPath);
 
 // Enable WAL mode for better concurrency and performance
